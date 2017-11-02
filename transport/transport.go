@@ -48,11 +48,11 @@ func (t *Transport) Do(req *Request) (*http.Response, error) {
 
 // DecodeResponseBody is a helper to decode the JSON body of an HTTP response.
 func DecodeResponseBody(resp *http.Response) (util.MapStr, error) {
-	var body map[string]interface{}
-	if err := json.NewDecoder(resp.Body).Decode(body); err != nil {
+	var body  = make(map[string]interface{})
+	if err := json.NewDecoder(resp.Body).Decode(&body); err != nil {
 		return nil, err
 	}
-	return util.MapStr(body), nil
+	return body, nil
 }
 
 // Request wraps an HTTP request with some options.
